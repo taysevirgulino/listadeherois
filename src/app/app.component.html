@@ -1,0 +1,47 @@
+<div class="container">
+    <h1>{{title}}</h1>
+    <p>{{description}}</p>
+
+    <p>Alguns membros da formação atual (clique para ver detalhes):</p>
+
+    <hr>
+
+    <div>
+        <app-heroi *ngFor="let vingador of vingadores" [heroi]="vingador" [estahSelecionado]="selecionado && vingador.id == selecionado.id" (onSelecionado)="heroiSelecionado($event)"></app-heroi>
+    </div>
+
+    <div *ngIf="selecionado">
+        {{ selecionado | json }}<br/><br/>
+        <button class="btn btn-danger btn-xs" (click)="removerHeroi()" >Excluir</button>  
+        <button class="btn btn-primary btn-xs" (click)="editarHeroi()" >Editar</button>   
+        <button class="btn btn-primary btn-xs" (click)="onClear()" >Limpar Campos</button>   
+    </div>
+
+    <hr>
+
+    <h2>Cadastro de herói</h2>
+    
+    <form #formCadastro="ngForm">
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" class="form-control" id="nome" name="nome" [(ngModel)]="vingadorEditar.nome" required>
+        </div>
+        <div class="form-group">
+            <label for="pessoa">Pessoa:</label>
+            <input type="text" class="form-control" id="pessoa" name="pessoa" [(ngModel)]="vingadorEditar.pessoa" required>
+        </div>
+        <div class="form-group">
+            <label for="criador">Criador:</label>
+            <input type="text" class="form-control" id="criador" name="criador" [(ngModel)]="vingadorEditar.criador" required>
+        </div>
+        <div class="form-group">
+            <label for="descricao">Descricao:</label>
+            <input type="text" class="form-control" id="descricao" name="descricao" [(ngModel)]="vingadorEditar.descricao" required>
+        </div>
+        <div class="form-group">
+            <label for="foto">Foto (url):</label>
+            <input type="text" class="form-control" id="foto" name="foto" [(ngModel)]="vingadorEditar.foto" required>
+        </div>
+        <button type="button" class="btn btn-success btn-xs" [disabled]="!formCadastro.valid" (click)="onSubmit()">Salvar</button>
+    </form><br/>
+</div>
